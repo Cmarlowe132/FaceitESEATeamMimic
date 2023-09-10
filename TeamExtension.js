@@ -3,7 +3,7 @@
     const playerRightSideDetails =
       document.getElementsByClassName("col-md-4")[0];
     const teamStatSection = document.createElement("div");
-    teamStatSection.className();
+    teamStatSection.innerHTML = "Hello";
     playerRightSideDetails.prepend(teamStatSection);
   }
 })();
