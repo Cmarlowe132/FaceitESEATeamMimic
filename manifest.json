@@ -9,14 +9,17 @@
     "default_title": "Faceit Team Displayer"
   },
   "host_permissions": ["*://*.faceit.com/*/players/*"],
-
+  "permissions": ["tabs"],
+  "background": {
+    "sevice_worker": "Background.js"
+  },
   "icons": {
     "48": "icons/border-48.png"
   },
 
   "content_scripts": [
     {
-      "matches": ["*://*.faceit.com/*/players/*"],
+      "matches": ["https://*.faceit.com/*/players/*"],
       "js": ["TeamExtension.js"]
     }
   ]
