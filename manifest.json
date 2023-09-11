@@ -1,12 +1,14 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "FaceitTeamExtension",
   "version": "1.0",
 
   "description": "This is an extension for Faceit.com to see what team a player currently is competing on, designed to mimic how ESEA used to appear before the sites merged.",
-  "browser_action": {
-    "default_popup": "popup.html"
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Faceit Team Displayer"
   },
+  "host_permissions": ["*://*.faceit.com/*/players/*"],
 
   "icons": {
     "48": "icons/border-48.png"
