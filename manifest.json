@@ -8,11 +8,12 @@
     "default_popup": "popup.html",
     "default_title": "Faceit Team Displayer"
   },
+  "background": {
+    "scripts": ["Background.js"]
+  },
   "host_permissions": ["*://*.faceit.com/*/players/*"],
   "permissions": ["tabs"],
-  "background": {
-    "sevice_worker": "Background.js"
-  },
+
   "icons": {
     "48": "icons/border-48.png"
   },
