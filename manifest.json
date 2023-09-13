@@ -20,7 +20,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://*.faceit.com/*/players/*"],
+      "matches": ["https://www.faceit.com/*"],
       "js": ["TeamExtension.js"]
     }
   ]
