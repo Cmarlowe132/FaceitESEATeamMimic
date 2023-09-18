@@ -4,7 +4,7 @@ browser.tabs.onUpdated.addListener((tabId, tab) => {
     if (!urlName.includes("/")) {
       const playerName = urlName;
       console.log(playerName);
-      browser.runtime.sendMessage({
+      browser.tabs.sendMessage(tabId, {
         playerName: playerName,
       });
     }

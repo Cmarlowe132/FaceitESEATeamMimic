@@ -11,11 +11,11 @@
   "background": {
     "scripts": ["Background.js"]
   },
-  "host_permissions": ["*://*.faceit.com/*/players/*"],
+  "host_permissions": ["https://www.faceit.com/*"],
   "permissions": ["tabs"],
 
   "icons": {
-    "48": "icons/border-48.png"
+    "48": "Assets/border-48.png"
   },
 
   "content_scripts": [

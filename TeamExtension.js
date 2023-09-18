@@ -1,28 +1,26 @@
 browser.runtime.onMessage.addListener((obj, sender, response) => {
-  console.log("HELLO");
-  if (obj.playerName != null) {
-    displayInfo();
+  if (obj.playerName) {
+    console.log(typeof obj.playerName);
+    displayInfo(obj.playerName);
   }
 });
 
-const displayInfo = () => {
+const displayInfo = (playerName) => {
   if (document.getElementsByClassName("col-md-4").length == 0) {
     setTimeout(() => {
       displayInfo();
     }, 1000);
   } else {
-    console.log(document.getElementsByClassName("col-md-4")[0]);
+    console.log(playerName);
     const playerRightSideDetails =
       document.getElementsByClassName("col-md-4")[0];
     const teamStatTitle = document.createElement("h3");
     teamStatTitle.innerHTML = "Faceit Team";
     const teamStatSection = document.createElement("div");
     teamStatSection.className = "profile__block__content";
-    teamStatSection.innerHTML = "Hello";
+    teamStatSection.innerHTML = playerName;
 
     playerRightSideDetails.prepend(teamStatSection);
     playerRightSideDetails.prepend(teamStatTitle);
   }
 };
-
-displayInfo();
