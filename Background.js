@@ -1,4 +1,4 @@
-import axios from "axios";
+//import axios from "axios";
 
 browser.tabs.onUpdated.addListener((tabId, tab) => {
   if (tab.url && tab.url.includes("players")) {

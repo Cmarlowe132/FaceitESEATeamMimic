@@ -1,5 +1,6 @@
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
+  console.log("right here");
   if (name) {
     displayInfo(name);
   }
@@ -17,7 +18,10 @@ const displayInfo = (playerName) => {
     teamStatTitle.innerHTML = "Team Stats";
     const teamStatSection = document.createElement("div");
     teamStatSection.className = "profile__block__content";
+    const leagueImage = document.createElement("img");
+    leagueImage.src = browser.runtime.getURL("Assets/Challenger.png");
     teamStatSection.innerHTML = playerName;
+    teamStatSection.appendChild(leagueImage);
 
     playerRightSideDetails.prepend(teamStatSection);
     playerRightSideDetails.prepend(teamStatTitle);
