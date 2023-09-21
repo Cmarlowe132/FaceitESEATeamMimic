@@ -1,3 +1,5 @@
+let leagueLevel = "";
+
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
   console.log("right here");
@@ -6,6 +8,7 @@ browser.runtime.onMessage.addListener((obj, sender, response) => {
   }
 });
 
+//Takes in a user's username and will display their team stats on the faceit stats page
 const displayInfo = (playerName) => {
   if (document.getElementsByClassName("col-md-4").length == 0) {
     setTimeout(() => {
@@ -42,14 +45,17 @@ const setPlayerLeagueImage = (leagueName) => {
 };
 
 const generateHTML = () => {
+  //Generates the div where the league image and win will be
+  const newSection = document.createElement("div");
+
   //Generates Header to designate section
   const teamStatTitle = document.createElement("h3");
   teamStatTitle.innerHTML = "Team Stats";
 
-  //Generates the div where the league image and win will be
-  const newSection = document.createElement("div");
+  //Creates section that will contain the league image, wins, and team name
   const teamStatSection = document.createElement("div");
   teamStatSection.className = "profile__block__content";
+
   const leagueImage = document.createElement("img");
   leagueImage.src = setPlayerLeagueImage("Advanced");
   teamStatSection.appendChild(leagueImage);
