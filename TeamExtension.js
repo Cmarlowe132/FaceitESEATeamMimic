@@ -14,16 +14,9 @@ const displayInfo = (playerName) => {
   } else {
     const playerRightSideDetails =
       document.getElementsByClassName("col-md-4")[0];
-    const teamStatTitle = document.createElement("h3");
-    teamStatTitle.innerHTML = "Team Stats";
-    const teamStatSection = document.createElement("div");
-    teamStatSection.className = "profile__block__content";
-    const leagueImage = document.createElement("img");
-    leagueImage.src = setPlayerLeagueImage("Advanced");
-    teamStatSection.appendChild(leagueImage);
+    const newSection = generateHTML();
 
-    playerRightSideDetails.prepend(teamStatSection);
-    playerRightSideDetails.prepend(teamStatTitle);
+    playerRightSideDetails.prepend(newSection);
   }
 };
 
