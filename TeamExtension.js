@@ -2,7 +2,6 @@ let leagueLevel = "";
 
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
-  console.log("right here");
   if (name) {
     displayInfo(name);
   }
@@ -10,16 +9,20 @@ browser.runtime.onMessage.addListener((obj, sender, response) => {
 
 //Takes in a user's username and will display their team stats on the faceit stats page
 const displayInfo = (playerName) => {
-  if (document.getElementsByClassName("col-md-4").length == 0) {
+  //Wait until the page has loaded the content fully and this section can be grabbed
+  if (!document.getElementById("content-grid-element-5")) {
     setTimeout(() => {
+      console.log("I am here");
       displayInfo(playerName);
     }, 1000);
   } else {
     if (document.getElementById("team-stat-section")) {
       return;
     }
-    const playerRightSideDetails =
-      document.getElementsByClassName("col-md-4")[0];
+    const playerRightSideDetails = document.getElementById(
+      "content-grid-element-5"
+    );
+    console.log(playerRightSideDetails);
     const newSection = generateHTML();
     playerRightSideDetails.prepend(newSection);
   }
@@ -52,12 +55,14 @@ const generateHTML = () => {
   newSection.id = "team-stat-section";
 
   //Generates Header to designate section
-  const teamStatTitle = document.createElement("h3");
+  const teamStatTitle = document.createElement("header");
+  teamStatTitle.className = "sc-fLoazL iBGUjh";
   teamStatTitle.innerHTML = "Team Stats";
 
   //Creates section that will contain the league image, wins, and team name
   const teamStatSection = document.createElement("div");
-  teamStatSection.className = "profile__block__content";
+  teamStatSection.className =
+    "sc-ktPjMR sc-hycdrw jKrt…ent-secondary undefined";
 
   const leagueImage = document.createElement("img");
   leagueImage.src = setPlayerLeagueImage("Advanced");
