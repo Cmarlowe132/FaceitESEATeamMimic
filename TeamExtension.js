@@ -1,3 +1,5 @@
+let playerName = "";
+
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
   console.log("right here");
@@ -27,3 +29,5 @@ const displayInfo = (playerName) => {
     playerRightSideDetails.prepend(teamStatTitle);
   }
 };
+
+const getPlayerTeam = async () => {};
