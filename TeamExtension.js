@@ -21,7 +21,7 @@ const displayInfo = (playerName) => {
     const teamStatSection = document.createElement("div");
     teamStatSection.className = "profile__block__content";
     const leagueImage = document.createElement("img");
-    leagueImage.src = browser.runtime.getURL("Assets/Challenger.png");
+    leagueImage.src = setPlayerLeagueImage("Challenger");
     teamStatSection.innerHTML = playerName;
     teamStatSection.appendChild(leagueImage);
 
@@ -30,4 +30,23 @@ const displayInfo = (playerName) => {
   }
 };
 
-const getPlayerTeam = async () => {};
+const getPlayerTeam = async () => {
+  fetch();
+};
+
+const setPlayerLeagueImage = (leagueName) => {
+  switch (leagueName) {
+    case "Challenger":
+      return browser.runtime.getURL("Assets/Challenger.png");
+    case "Advanced":
+      return browser.runtime.getURL("Assets/Advanced.png");
+    case "Main":
+      return browser.runtime.getURL("Assets/Main.png");
+    case "Intermediate":
+      return browser.runtime.getURL("Assets/Intermediate.png");
+    case "Open":
+      return browser.runtime.getURL("Assets/Open.png");
+    default:
+      return browser.runtime.getURL("Assets/Open.png");
+  }
+};
