@@ -21,8 +21,7 @@ const displayInfo = (playerName) => {
     const teamStatSection = document.createElement("div");
     teamStatSection.className = "profile__block__content";
     const leagueImage = document.createElement("img");
-    leagueImage.src = setPlayerLeagueImage("Challenger");
-    teamStatSection.innerHTML = playerName;
+    leagueImage.src = setPlayerLeagueImage("Advanced");
     teamStatSection.appendChild(leagueImage);
 
     playerRightSideDetails.prepend(teamStatSection);
