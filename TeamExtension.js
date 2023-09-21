@@ -15,10 +15,12 @@ const displayInfo = (playerName) => {
       displayInfo(playerName);
     }, 1000);
   } else {
+    if (document.getElementById("team-stat-section")) {
+      return;
+    }
     const playerRightSideDetails =
       document.getElementsByClassName("col-md-4")[0];
     const newSection = generateHTML();
-
     playerRightSideDetails.prepend(newSection);
   }
 };
@@ -47,6 +49,7 @@ const setPlayerLeagueImage = (leagueName) => {
 const generateHTML = () => {
   //Generates the div where the league image and win will be
   const newSection = document.createElement("div");
+  newSection.id = "team-stat-section";
 
   //Generates Header to designate section
   const teamStatTitle = document.createElement("h3");
