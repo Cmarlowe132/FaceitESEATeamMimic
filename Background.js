@@ -10,3 +10,7 @@ browser.tabs.onUpdated.addListener((tabId, tab) => {
     }
   }
 });
+
+const callAPIs = async (username) => {};
+
+//229b8d49-00be-4d43-8170-f4ee80873973 faceit api key
