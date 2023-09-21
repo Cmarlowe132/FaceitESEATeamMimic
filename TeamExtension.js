@@ -1,5 +1,3 @@
-let playerName = "";
-
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
   console.log("right here");
@@ -48,4 +46,22 @@ const setPlayerLeagueImage = (leagueName) => {
     default:
       return browser.runtime.getURL("Assets/Open.png");
   }
+};
+
+const generateHTML = () => {
+  //Generates Header to designate section
+  const teamStatTitle = document.createElement("h3");
+  teamStatTitle.innerHTML = "Team Stats";
+
+  //Generates the div where the league image and win will be
+  const newSection = document.createElement("div");
+  const teamStatSection = document.createElement("div");
+  teamStatSection.className = "profile__block__content";
+  const leagueImage = document.createElement("img");
+  leagueImage.src = setPlayerLeagueImage("Advanced");
+  teamStatSection.appendChild(leagueImage);
+
+  newSection.prepend(teamStatSection);
+  newSection.prepend(teamStatTitle);
+  return newSection;
 };
