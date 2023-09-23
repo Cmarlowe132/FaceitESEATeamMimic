@@ -73,21 +73,24 @@ const getPlayerMatchHistory = async () => {
         leagueLevel = currentMatches.items[i].competition_name;
 
         for (let j = 0; j < currentMatches.items[i].teams.faction1.players.length; j++) {
-          if (currentMatches.items[i].teams.faction1.players[j].player_id == playerID) {
-            playerTeamID = currentMatches.items[i].teams.faction1.faction_id;
+          if (currentMatches.items[i].teams.faction1.players[j].player_id === playerID) {
+            playerTeamID = currentMatches.items[i].teams.faction1.team_id;
+            break;
           }
         }
+
+        if (playerTeamID === "") {
+          playerTeamID = currentMatches.items[i].teams.faction2.team_id;
+        }
+        console.log(leagueLevel);
+        break;
       }
-      if (playerTeamID === "") {
-        playerTeamID = currentMatches.items[i].teams.faction2.faction_id;
-      }
-      break;
     }
-  }
-  if (leagueLevel != "" || currentMatches.items.length < 100) {
-    keepChecking = false;
-  } else {
-    num += 100;
+    if (leagueLevel != "" || currentMatches.items.length < 100) {
+      keepChecking = false;
+    } else {
+      num += 100;
+    }
   }
   console.log(leagueLevel);
   console.log(playerTeamID);
