@@ -11,19 +11,22 @@ browser.tabs.onUpdated.addListener(async (tabId, tab) => {
     const urlName = tab.url.split("players/")[1];
     if (!urlName.includes("/")) {
       const playerName = urlName;
-      const hold = await callAPIs(playerName);
       console.log(playerName);
-      browser.tabs.sendMessage(tabId, {
+      await callAPIs(playerName);
+      await sendMessage(tabId, {
         playerName: playerName,
         player_id: playerID,
-        league_id: leagueLevel,
+        league_level: leagueLevel,
       });
     }
   }
 });
 
+const sendMessage = async (tabs, obj) => {
+  browser.tabs.sendMessage(tabs, obj);
+};
 const callAPIs = async (username) => {
-  const response = await fetch(faceitAPIURL + "search/players?nickname=" + username + "&game=csgo&offset=0&limit=20", {
+  const response = await fetch(faceitAPIURL + "players?nickname=" + username + "&game=csgo", {
     method: "GET",
     headers: {
       accept: headerAccept,
@@ -31,7 +34,7 @@ const callAPIs = async (username) => {
     },
   });
   const playerAPIValues = await response.json();
-  playerID = playerAPIValues.items[0].player_id;
+  playerID = playerAPIValues.player_id;
   getPlayerMatchHistory();
 };
 
@@ -76,6 +79,5 @@ const getPlayerMatchHistory = async () => {
       num += 100;
     }
   }
-  console.log(playerTeamID);
-  return new Promise((resolve) => {});
+  return new Promise(() => {});
 };
