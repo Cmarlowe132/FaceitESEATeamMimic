@@ -25,6 +25,7 @@ browser.tabs.onUpdated.addListener(async (tabId, tab) => {
 const sendMessage = async (tabs, obj) => {
   browser.tabs.sendMessage(tabs, obj);
 };
+
 const callAPIs = async (username) => {
   const response = await fetch(faceitAPIURL + "players?nickname=" + username + "&game=csgo", {
     method: "GET",
