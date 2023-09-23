@@ -2,7 +2,7 @@ const faceitAPIURL = "https://open.faceit.com/data/v4/";
 const headerAccept = "application/json";
 const headerAuthorization = "Bearer 229b8d49-00be-4d43-8170-f4ee80873973";
 let leagueLevel = "";
-let leagueOrganizerID = "08b06cfc-74d0-454b-9a51-feda4b6b18da";
+const leagueOrganizerID = "08b06cfc-74d0-454b-9a51-feda4b6b18da"; //this is the organizer ID of ESEA
 let playerTeamID = "";
 let playerID = "";
 
@@ -50,7 +50,8 @@ const getPlayerMatchHistory = async () => {
     for (let i = 0; i < currentMatches.items.length; i++) {
       if (
         currentMatches.items[i].competition_type === "championship" &&
-        currentMatches.items[i].organizer_id === leagueOrganizerID
+        currentMatches.items[i].organizer_id === leagueOrganizerID &&
+        !currentMatches.items[i].competition_name.includes("Qualifier")
       ) {
         leagueLevel = currentMatches.items[i].competition_name;
 
@@ -64,7 +65,6 @@ const getPlayerMatchHistory = async () => {
         if (playerTeamID === "") {
           playerTeamID = currentMatches.items[i].teams.faction2.team_id;
         }
-        console.log(leagueLevel);
         break;
       }
     }
@@ -74,4 +74,5 @@ const getPlayerMatchHistory = async () => {
       num += 100;
     }
   }
+  console.log(playerTeamID);
 };
