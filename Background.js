@@ -3,6 +3,7 @@ const headerAccept = "application/json";
 const headerAuthorization = "Bearer 229b8d49-00be-4d43-8170-f4ee80873973";
 let leagueLevel = "";
 let leagueOrganizerID = "08b06cfc-74d0-454b-9a51-feda4b6b18da";
+let playerTeamID = "";
 let playerID = "";
 
 browser.tabs.onUpdated.addListener((tabId, tab) => {
@@ -20,19 +21,13 @@ browser.tabs.onUpdated.addListener((tabId, tab) => {
 });
 
 const callAPIs = async (username) => {
-  const response = await fetch(
-    faceitAPIURL +
-      "search/players?nickname=" +
-      username +
-      "&game=csgo&offset=0&limit=20",
-    {
-      method: "GET",
-      headers: {
-        accept: headerAccept,
-        Authorization: headerAuthorization,
-      },
-    }
-  );
+  const response = await fetch(faceitAPIURL + "search/players?nickname=" + username + "&game=csgo&offset=0&limit=20", {
+    method: "GET",
+    headers: {
+      accept: headerAccept,
+      Authorization: headerAuthorization,
+    },
+  });
   const playerAPIValues = await response.json();
   playerID = playerAPIValues.items[0].player_id;
 
@@ -59,36 +54,41 @@ const callAPIs = async (username) => {
 const getPlayerMatchHistory = async () => {
   let keepChecking = true;
   let num = 100;
+
   while (keepChecking) {
-    const response = await fetch(
-      faceitAPIURL +
-        "players/" +
-        playerID +
-        "/history?game=csgo&offset=0&limit=" +
-        num,
-      {
-        method: "GET",
-        headers: {
-          accept: headerAccept,
-          Authorization: headerAuthorization,
-        },
-      }
-    );
+    const response = await fetch(faceitAPIURL + "players/" + playerID + "/history?game=csgo&offset=0&limit=" + num, {
+      method: "GET",
+      headers: {
+        accept: headerAccept,
+        Authorization: headerAuthorization,
+      },
+    });
     const currentMatches = await response.json();
+
     for (let i = 0; i < currentMatches.items.length; i++) {
       if (
         currentMatches.items[i].competition_type === "championship" &&
         currentMatches.items[i].organizer_id === leagueOrganizerID
       ) {
         leagueLevel = currentMatches.items[i].competition_name;
-        break;
+
+        for (let j = 0; j < currentMatches.items[i].teams.faction1.players.length; j++) {
+          if (currentMatches.items[i].teams.faction1.players[j].player_id == playerID) {
+            playerTeamID = currentMatches.items[i].teams.faction1.faction_id;
+          }
+        }
       }
-    }
-    if (leagueLevel != "") {
-      keepChecking = false;
-    } else {
-      num += 100;
+      if (playerTeamID === "") {
+        playerTeamID = currentMatches.items[i].teams.faction2.faction_id;
+      }
+      break;
     }
   }
+  if (leagueLevel != "" || currentMatches.items.length < 100) {
+    keepChecking = false;
+  } else {
+    num += 100;
+  }
   console.log(leagueLevel);
+  console.log(playerTeamID);
 };
