@@ -30,24 +30,6 @@ const callAPIs = async (username) => {
   });
   const playerAPIValues = await response.json();
   playerID = playerAPIValues.items[0].player_id;
-
-  // const response2 = await fetch(
-  //   faceitAPIURL + "players/" + playerID + "/teams?offset=0&limit=20",
-  //   {
-  //     method: "GET",
-  //     headers: {
-  //       accept: headerAccept,
-  //       Authorization: headerAuthorization,
-  //     },
-  //   }
-  // );
-  // const playerTeamListValues = await response2.json();
-  // let listOfTeams = [];
-  // console.log(playerTeamListValues.items[0]);
-  // for (let i = 0; i < playerTeamListValues.items.length; i++) {
-  //   listOfTeams.push(playerTeamListValues.items[i].team_id);
-  // }
-
   getPlayerMatchHistory();
 };
 
@@ -92,6 +74,4 @@ const getPlayerMatchHistory = async () => {
       num += 100;
     }
   }
-  console.log(leagueLevel);
-  console.log(playerTeamID);
 };
