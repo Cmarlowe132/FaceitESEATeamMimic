@@ -6,15 +6,17 @@ const leagueOrganizerID = "08b06cfc-74d0-454b-9a51-feda4b6b18da"; //this is the 
 let playerTeamID = "";
 let playerID = "";
 
-browser.tabs.onUpdated.addListener((tabId, tab) => {
+browser.tabs.onUpdated.addListener(async (tabId, tab) => {
   if (tab.url && tab.url.includes("players")) {
     const urlName = tab.url.split("players/")[1];
     if (!urlName.includes("/")) {
       const playerName = urlName;
-      console.log(callAPIs(playerName));
+      const hold = await callAPIs(playerName);
       console.log(playerName);
       browser.tabs.sendMessage(tabId, {
         playerName: playerName,
+        player_id: playerID,
+        league_id: leagueLevel,
       });
     }
   }
@@ -75,4 +77,5 @@ const getPlayerMatchHistory = async () => {
     }
   }
   console.log(playerTeamID);
+  return new Promise((resolve) => {});
 };

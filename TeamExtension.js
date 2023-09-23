@@ -2,6 +2,7 @@ let leagueLevel = "";
 
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
+  console.log(obj.league_id);
   if (name) {
     displayInfo(name);
   }
@@ -12,16 +13,13 @@ const displayInfo = (playerName) => {
   //Wait until the page has loaded the content fully and this section can be grabbed
   if (!document.getElementById("content-grid-element-5")) {
     setTimeout(() => {
-      console.log("I am here");
       displayInfo(playerName);
     }, 1000);
   } else {
     if (document.getElementById("team-stat-section")) {
       return;
     }
-    const playerRightSideDetails = document.getElementById(
-      "content-grid-element-5"
-    );
+    const playerRightSideDetails = document.getElementById("content-grid-element-5");
     console.log(playerRightSideDetails);
     const newSection = generateHTML();
     playerRightSideDetails.prepend(newSection);
@@ -61,8 +59,7 @@ const generateHTML = () => {
 
   //Creates section that will contain the league image, wins, and team name
   const teamStatSection = document.createElement("div");
-  teamStatSection.className =
-    "sc-ktPjMR sc-hycdrw jKrt…ent-secondary undefined";
+  teamStatSection.className = "sc-ktPjMR sc-hycdrw jKrt…ent-secondary undefined";
 
   const leagueImage = document.createElement("img");
   leagueImage.src = setPlayerLeagueImage("Advanced");
