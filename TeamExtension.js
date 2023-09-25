@@ -18,6 +18,7 @@ const displayInfo = (playerName) => {
     }, 1000);
   } else {
     if (document.getElementById("team-stat-section")) {
+      //updateInfo();
       return;
     }
     const playerRightSideDetails = document.getElementById("content-grid-element-5");
@@ -29,6 +30,8 @@ const displayInfo = (playerName) => {
 const getPlayerTeam = async () => {
   fetch();
 };
+
+const updateInfo = () => {};
 
 const setPlayerLeagueImage = (leagueName) => {
   switch (leagueName) {
@@ -56,14 +59,15 @@ const generateHTML = () => {
   //Generates Header to designate section
   const teamStatTitle = document.createElement("header");
   teamStatTitle.className = "sc-fLoazL iBGUjh";
-  teamStatTitle.innerHTML = "League";
+  const titleLeague = document.createElement("h5");
+  titleLeague.innerText = "League";
+  teamStatTitle.appendChild(titleLeague);
 
   //Creates section that will contain the league image, wins, and team name
   const teamStatSection = document.createElement("div");
   teamStatSection.className = "sc-ktPjMR sc-hycdrw jKrt…ent-secondary undefined";
 
   const leagueImage = document.createElement("img");
-  console.log(leagueLevel);
   leagueImage.src = setPlayerLeagueImage(leagueLevel);
   teamStatSection.appendChild(leagueImage);
 

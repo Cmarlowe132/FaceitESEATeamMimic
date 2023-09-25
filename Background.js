@@ -11,16 +11,13 @@ browser.tabs.onUpdated.addListener(async (tabId, tab) => {
     const urlName = tab.url.split("players/")[1];
     if (!urlName.includes("/")) {
       const playerName = urlName;
-      console.log(playerName);
-      browser.tabs.insertCSS(
-        tabId,
-        {
-          file: teamStatSection.css,
+      await browser.scripting.insertCSS({
+        target: {
+          tabId,
         },
-        () => {
-          console.log("Inserted CSS");
-        }
-      );
+        files: ["teamStatSection.css"],
+      });
+      console.log(playerName);
       await callAPIs(playerName);
       await sendMessage(tabId, playerName);
     }
