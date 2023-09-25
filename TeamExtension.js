@@ -1,4 +1,5 @@
 let leagueLevel = "";
+let playerTeamName = "Faze Clan"; //Temporary Holder
 
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
@@ -78,6 +79,16 @@ const generateHTML = () => {
   recordDiv.className = "record";
   recordDiv.innerHTML = "0-0-0";
   teamStatSection.appendChild(recordDiv);
+
+  const teamNameSection = document.createElement("div");
+  teamNameSection.className = "team-name";
+  teamNameSection.innerHTML = "Playing CS:GO with ";
+
+  const teamNameText = document.createElement("a");
+  teamNameText.className = "team-name-team";
+  teamNameText.innerHTML = playerTeamName;
+  teamNameSection.appendChild(teamNameText);
+  teamStatSection.appendChild(teamNameSection);
 
   const leagueImage = document.createElement("img");
   leagueImage.src = setPlayerLeagueImage(leagueLevel);

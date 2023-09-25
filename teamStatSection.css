@@ -24,6 +24,20 @@
   font-size: 30px;
 }
 
+.team-name {
+  color: whitesmoke;
+  font-size: 20px;
+}
+
+.team-name-team {
+  color: orangered;
+}
+
+.team-name-team:hover {
+  color: red;
+  text-decoration: underline;
+}
+
 .team-stat-section {
   text-align: center;
   padding-top: 10px;
