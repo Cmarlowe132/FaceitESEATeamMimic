@@ -23,7 +23,13 @@ browser.tabs.onUpdated.addListener(async (tabId, tab) => {
 });
 
 const sendMessage = async (tabs, obj) => {
-  browser.tabs.sendMessage(tabs, obj);
+  if (playerTeamID == "") {
+    setTimeout(() => {
+      sendMessage(tabs, obj);
+    }, 1000);
+  } else {
+    browser.tabs.sendMessage(tabs, obj);
+  }
 };
 
 const callAPIs = async (username) => {
