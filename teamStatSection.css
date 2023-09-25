@@ -19,6 +19,11 @@
   padding-bottom: 5px;
 }
 
+.record {
+  color: whitesmoke;
+  font-size: 30px;
+}
+
 .team-stat-section {
   text-align: center;
   padding-top: 10px;

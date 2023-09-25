@@ -74,6 +74,11 @@ const generateHTML = () => {
   leagueWordDiv.innerHTML = "League";
   teamStatSection.appendChild(leagueWordDiv);
 
+  const recordDiv = document.createElement("div");
+  recordDiv.className = "record";
+  recordDiv.innerHTML = "0-0-0";
+  teamStatSection.appendChild(recordDiv);
+
   const leagueImage = document.createElement("img");
   leagueImage.src = setPlayerLeagueImage(leagueLevel);
   teamStatSection.appendChild(leagueImage);
