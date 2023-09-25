@@ -24,7 +24,7 @@
     }
   ],
   "host_permissions": ["https://www.faceit.com/*"],
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "scripting"],
 
   "icons": {
     "48": "Assets/border-48.png"
