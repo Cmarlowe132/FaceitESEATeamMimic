@@ -13,22 +13,25 @@ browser.tabs.onUpdated.addListener(async (tabId, tab) => {
       const playerName = urlName;
       console.log(playerName);
       await callAPIs(playerName);
-      await sendMessage(tabId, {
-        playerName: playerName,
-        player_id: playerID,
-        league_level: leagueLevel,
-      });
+      await sendMessage(tabId, playerName);
     }
   }
 });
 
-const sendMessage = async (tabs, obj) => {
+const sendMessage = async (tabs, playerName) => {
   if (playerTeamID == "") {
     setTimeout(() => {
-      sendMessage(tabs, obj);
+      sendMessage(tabs, playerName);
     }, 1000);
   } else {
-    browser.tabs.sendMessage(tabs, obj);
+    browser.tabs.sendMessage(tabs, {
+      playerName: playerName,
+      player_id: playerID,
+      league_level: leagueLevel,
+    });
+    leagueLevel = "";
+    playerID = "";
+    playerTeamID = "";
   }
 };
 
