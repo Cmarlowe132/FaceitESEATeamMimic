@@ -1,5 +1,5 @@
 .league-title {
-  background-color: orangered;
+  background-color: #ff5500;
   color: whitesmoke;
   margin-top: 10px;
   padding-top: 5px;
@@ -30,7 +30,8 @@
 }
 
 .team-name-team {
-  color: orangered;
+  font-size: 20px;
+  color: #ff5500;
 }
 
 .team-name-team:hover {

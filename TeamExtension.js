@@ -77,25 +77,41 @@ const generateHTML = () => {
   leagueWordDiv.innerHTML = "League";
   teamStatSection.appendChild(leagueWordDiv);
 
+  const leagueImage = document.createElement("img");
+  leagueImage.src = browser.runtime.getURL("Assets/tile-large.png");
+  teamStatSection.appendChild(leagueImage);
+
   const recordDiv = document.createElement("div");
   recordDiv.className = "record";
   recordDiv.innerHTML = "0-0-0";
   teamStatSection.appendChild(recordDiv);
 
-  const teamNameSection = document.createElement("div");
-  teamNameSection.className = "team-name";
-  teamNameSection.innerHTML = "CS:GO ";
+  const teamLeagueName = document.createElement("div");
+  teamLeagueName.className = "team-name";
+  teamLeagueName.innerHTML = "CS:GO ";
 
   const teamNameText = document.createElement("a");
   teamNameText.className = "team-name-team";
   teamNameText.innerHTML = leagueLevel;
   teamNameText.href = leagueURL;
-  teamNameSection.appendChild(teamNameText);
-  teamStatSection.appendChild(teamNameSection);
+  teamLeagueName.appendChild(teamNameText);
+  teamStatSection.appendChild(teamLeagueName);
 
-  const leagueImage = document.createElement("img");
-  leagueImage.src = setPlayerLeagueImage(leagueLevel);
-  teamStatSection.appendChild(leagueImage);
+  const smallTextSection = document.createElement("div");
+  smallTextSection.classname = "league-text";
+  smallTextSection.innerHTML = "with";
+  teamStatSection.appendChild(smallTextSection);
+
+  const playerTeamNameSection = document.createElement("div");
+  playerTeamNameSection.className = "team-name";
+
+  const teamName = document.createElement("a");
+  teamName.className = "team-name-team";
+  teamName.innerHTML = playerTeamName;
+  teamName.href = playerTeamLink;
+
+  playerTeamNameSection.appendChild(teamName);
+  teamStatSection.appendChild(playerTeamNameSection);
 
   newSection.prepend(teamStatSection);
   newSection.prepend(teamStatTitle);
