@@ -12,6 +12,15 @@ browser.tabs.onUpdated.addListener(async (tabId, tab) => {
     if (!urlName.includes("/")) {
       const playerName = urlName;
       console.log(playerName);
+      browser.tabs.insertCSS(
+        tabId,
+        {
+          file: teamStatSection.css,
+        },
+        () => {
+          console.log("Inserted CSS");
+        }
+      );
       await callAPIs(playerName);
       await sendMessage(tabId, playerName);
     }

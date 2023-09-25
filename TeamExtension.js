@@ -56,7 +56,7 @@ const generateHTML = () => {
   //Generates Header to designate section
   const teamStatTitle = document.createElement("header");
   teamStatTitle.className = "sc-fLoazL iBGUjh";
-  teamStatTitle.innerHTML = "Team Stats";
+  teamStatTitle.innerHTML = "League";
 
   //Creates section that will contain the league image, wins, and team name
   const teamStatSection = document.createElement("div");
