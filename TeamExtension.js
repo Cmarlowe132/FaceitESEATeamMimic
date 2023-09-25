@@ -1,5 +1,7 @@
 let leagueLevel = "";
 let playerTeamName = "Faze Clan"; //Temporary Holder
+let playerTeamLink = "https://www.faceit.com/en/teams/16038d23-f326-4f7b-af9a-68240c661296";
+let leagueURL = "https://www.faceit.com/en/csgo/league/ESEA%20League/a14b8616-45b9-4581-8637-4dfd0b5f6af8/overview";
 
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
@@ -82,11 +84,12 @@ const generateHTML = () => {
 
   const teamNameSection = document.createElement("div");
   teamNameSection.className = "team-name";
-  teamNameSection.innerHTML = "Playing CS:GO with ";
+  teamNameSection.innerHTML = "CS:GO ";
 
   const teamNameText = document.createElement("a");
   teamNameText.className = "team-name-team";
-  teamNameText.innerHTML = playerTeamName;
+  teamNameText.innerHTML = leagueLevel;
+  teamNameText.href = leagueURL;
   teamNameSection.appendChild(teamNameText);
   teamStatSection.appendChild(teamNameSection);
 
