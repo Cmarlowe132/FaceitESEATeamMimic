@@ -78,7 +78,7 @@ const generateHTML = () => {
   teamStatSection.appendChild(leagueWordDiv);
 
   const leagueImage = document.createElement("img");
-  leagueImage.src = browser.runtime.getURL("Assets/tile-large.png");
+  leagueImage.src = browser.runtime.getURL("600px-ESEA_darkmode.png");
   teamStatSection.appendChild(leagueImage);
 
   const recordDiv = document.createElement("div");

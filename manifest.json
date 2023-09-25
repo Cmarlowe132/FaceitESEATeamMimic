@@ -18,7 +18,9 @@
         "Assets/Challenger.png",
         "Assets/Intermediate.png",
         "Assets/Main.png",
-        "Assets/Open.png"
+        "Assets/Open.png",
+        "Assets/tile-large.png",
+        "Assets/600px-ESEA_darkmode.png"
       ],
       "matches": ["https://www.faceit.com/*"]
     }
