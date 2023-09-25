@@ -1,9 +1,25 @@
-.leagueTitle {
-  background-color: lightsalmon;
+.league-title {
+  background-color: orangered;
   color: whitesmoke;
+  margin-top: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 6px;
-  padding-right: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
   text-align: center;
+  display: inline-block;
+  margin: 0 auto;
+  font-size: 20px;
+}
+
+.league-text {
+  color: darkgrey;
+  letter-spacing: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.team-stat-section {
+  text-align: center;
+  padding-top: 10px;
 }

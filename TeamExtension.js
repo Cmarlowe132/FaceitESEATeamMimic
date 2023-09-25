@@ -27,10 +27,6 @@ const displayInfo = (playerName) => {
   }
 };
 
-const getPlayerTeam = async () => {
-  fetch();
-};
-
 const updateInfo = () => {};
 
 const setPlayerLeagueImage = (leagueName) => {
@@ -56,16 +52,27 @@ const generateHTML = () => {
   const newSection = document.createElement("div");
   newSection.id = "team-stat-section";
 
-  //Generates Header to designate section
+  //Generates Header to designate section using Faceit's styling
   const teamStatTitle = document.createElement("header");
   teamStatTitle.className = "sc-fLoazL iBGUjh";
   const titleLeague = document.createElement("h5");
+  titleLeague.className = "sc-kgvGAC jJDCMI";
   titleLeague.innerText = "League";
   teamStatTitle.appendChild(titleLeague);
 
   //Creates section that will contain the league image, wins, and team name
   const teamStatSection = document.createElement("div");
-  teamStatSection.className = "sc-ktPjMR sc-hycdrw jKrt…ent-secondary undefined";
+  teamStatSection.className = "team-stat-section";
+
+  const teamStatSectionTitle = document.createElement("div");
+  teamStatSectionTitle.className = "league-title";
+  teamStatSectionTitle.innerHTML = leagueLevel;
+  teamStatSection.appendChild(teamStatSectionTitle);
+
+  const leagueWordDiv = document.createElement("div");
+  leagueWordDiv.className = "league-text";
+  leagueWordDiv.innerHTML = "League";
+  teamStatSection.appendChild(leagueWordDiv);
 
   const leagueImage = document.createElement("img");
   leagueImage.src = setPlayerLeagueImage(leagueLevel);
