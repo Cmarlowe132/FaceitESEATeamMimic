@@ -2,6 +2,12 @@
   "manifest_version": 3,
   "name": "FaceitTeamExtension",
   "version": "1.0",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{9b3683f7-5d11-4203-99e8-c46e4dc3b0c1}",
+      "strict_min_version": "42.0"
+    }
+  },
 
   "description": "This is an extension for Faceit.com to see what team a player currently is competing on, designed to mimic how ESEA used to appear before the sites merged.",
   "action": {
