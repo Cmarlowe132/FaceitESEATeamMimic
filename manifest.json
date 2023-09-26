@@ -29,7 +29,7 @@
   "permissions": ["tabs", "scripting"],
 
   "icons": {
-    "48": "Assets/border-48.png"
+    "48": "Assets/extension-logo48.png"
   },
 
   "content_scripts": [

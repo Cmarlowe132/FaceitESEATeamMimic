@@ -79,6 +79,7 @@ const generateHTML = () => {
 
   const leagueImage = document.createElement("img");
   leagueImage.src = browser.runtime.getURL("Assets/600px-ESEA_darkmode.png");
+  leagueImage.className = "image-section";
   teamStatSection.appendChild(leagueImage);
 
   const recordDiv = document.createElement("div");
@@ -134,7 +135,7 @@ const getLeagueName = (leagueName) => {
           if (leagueName.includes("ECL")) {
             return "Challenger";
           } else {
-            return "Oh no";
+            return "NA";
           }
         }
       }
