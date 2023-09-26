@@ -46,7 +46,7 @@ const sendMessage = async (tabs, playerName, urlLanguage) => {
   if (teamURL == "") {
     setTimeout(() => {
       sendMessage(tabs, playerName, urlLanguage);
-    }, 1000);
+    }, 500);
   } else {
     browser.tabs.sendMessage(tabs, {
       playerName: playerName,

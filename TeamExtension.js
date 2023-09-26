@@ -5,7 +5,7 @@ let leagueURL = "https://www.faceit.com/en/csgo/league/ESEA%20League/a14b8616-45
 
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
-  console.log(obj.team_name);
+  console.log(obj);
   leagueLevel = obj.league_level;
   playerTeamName = obj.team_name;
   playerTeamLink = cleanURL(obj.team_URL, obj.url_language);
@@ -23,7 +23,7 @@ const displayInfo = (playerName) => {
     }, 1000);
   } else {
     if (document.getElementById("team-stat-section")) {
-      //updateInfo();
+      updateInfo();
       return;
     }
     const playerRightSideDetails = document.getElementById("content-grid-element-5");
@@ -32,7 +32,17 @@ const displayInfo = (playerName) => {
   }
 };
 
-const updateInfo = () => {};
+const updateInfo = () => {
+  leagueLevel = getLeagueName(leagueLevel);
+  const teamNameSection = document.getElementById("team-name");
+  const teamLeagueLevel = document.getElementById("league-level");
+  const teamLevel = document.getElementById("team-level");
+
+  teamNameSection.innerHTML = playerTeamName;
+  teamNameSection.href = playerTeamLink;
+  teamLeagueLevel.innerHTML = leagueLevel;
+  teamLevel.innerHTML = leagueLevel;
+};
 
 const generateHTML = () => {
   leagueLevel = getLeagueName(leagueLevel);
@@ -54,6 +64,7 @@ const generateHTML = () => {
 
   const teamStatSectionTitle = document.createElement("div");
   teamStatSectionTitle.className = "league-title";
+  teamStatSectionTitle.id = "league-level";
   teamStatSectionTitle.innerHTML = leagueLevel;
   teamStatSection.appendChild(teamStatSectionTitle);
 
@@ -80,6 +91,7 @@ const generateHTML = () => {
   teamNameText.className = "team-name-team";
   teamNameText.innerHTML = leagueLevel;
   teamNameText.href = leagueURL;
+  teamNameText.id = "team-level";
   teamLeagueName.appendChild(teamNameText);
   teamStatSection.appendChild(teamLeagueName);
 
@@ -94,6 +106,7 @@ const generateHTML = () => {
   const teamName = document.createElement("a");
   teamName.className = "team-name-team";
   teamName.innerHTML = playerTeamName;
+  teamName.id = "team-name";
   teamName.href = playerTeamLink;
 
   playerTeamNameSection.appendChild(teamName);
@@ -120,7 +133,7 @@ const getLeagueName = (leagueName) => {
           if (leagueName.includes("ECL")) {
             return "Challenger";
           } else {
-            return "NA";
+            return "Loading";
           }
         }
       }
