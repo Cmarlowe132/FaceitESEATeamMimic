@@ -5,9 +5,12 @@ let leagueLevel = "";
 const leagueOrganizerID = "08b06cfc-74d0-454b-9a51-feda4b6b18da"; //this is the organizer ID of ESEA
 let playerTeamID = "";
 let playerID = "";
+let teamName = "";
+let teamURL = "";
 
 browser.tabs.onUpdated.addListener(async (tabId, tab) => {
-  if (tab.url && tab.url.includes("players")) {
+  if (tab.url && tab.url.includes("players") && !tab.url.includes("modal")) {
+    const urlLanguage = tab.url.split(".com/")[1].split("/")[0];
     const urlName = tab.url.split("players/")[1];
     if (!urlName.includes("/")) {
       const playerName = urlName;
@@ -17,27 +20,46 @@ browser.tabs.onUpdated.addListener(async (tabId, tab) => {
         },
         files: ["teamStatSection.css"],
       });
-      console.log(playerName);
       await callAPIs(playerName);
-      await sendMessage(tabId, playerName);
+      await sendMessage(tabId, playerName, urlLanguage);
+    }
+  } else {
+    if (tab.url && tab.url.includes("players-modal")) {
+      const urlName = tab.url.split("players-modal/")[1];
+      const urlLanguage = tab.url.split(".com/")[1].split("/")[0];
+      if (!urlName.includes("/")) {
+        const playerName = urlName;
+        await browser.scripting.insertCSS({
+          target: {
+            tabId,
+          },
+          files: ["teamStatSection.css"],
+        });
+        await callAPIs(playerName);
+        await sendMessage(tabId, playerName, urlLanguage);
+      }
     }
   }
 });
 
-const sendMessage = async (tabs, playerName) => {
-  if (playerTeamID == "") {
+const sendMessage = async (tabs, playerName, urlLanguage) => {
+  if (teamURL == "") {
     setTimeout(() => {
-      sendMessage(tabs, playerName);
-    }, 1000);
+      sendMessage(tabs, playerName, urlLanguage);
+    }, 500);
   } else {
     browser.tabs.sendMessage(tabs, {
       playerName: playerName,
       player_id: playerID,
       league_level: leagueLevel,
+      team_name: teamName,
+      team_URL: teamURL,
+      url_language: urlLanguage,
     });
     leagueLevel = "";
-    playerID = "";
     playerTeamID = "";
+    teamName = "";
+    teamURL = "";
   }
 };
 
@@ -75,7 +97,6 @@ const getPlayerMatchHistory = async () => {
         !currentMatches.items[i].competition_name.includes("Qualifier")
       ) {
         leagueLevel = currentMatches.items[i].competition_name;
-
         for (let j = 0; j < currentMatches.items[i].teams.faction1.players.length; j++) {
           if (currentMatches.items[i].teams.faction1.players[j].player_id === playerID) {
             playerTeamID = currentMatches.items[i].teams.faction1.team_id;
@@ -95,5 +116,17 @@ const getPlayerMatchHistory = async () => {
       num += 100;
     }
   }
+  const teamResponse = await fetch(faceitAPIURL + "teams/" + playerTeamID, {
+    method: "GET",
+    headers: {
+      accept: headerAccept,
+      Authorization: headerAuthorization,
+    },
+  });
+
+  const teamInfo = await teamResponse.json();
+  teamName = teamInfo.name;
+  teamURL = teamInfo.faceit_url;
+
   return new Promise(() => {});
 };

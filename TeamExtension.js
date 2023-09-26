@@ -1,12 +1,14 @@
 let leagueLevel = "";
-let playerTeamName = "Faze Clan"; //Temporary Holder
-let playerTeamLink = "https://www.faceit.com/en/teams/16038d23-f326-4f7b-af9a-68240c661296";
+let playerTeamName = ""; //Temporary Holder
+let playerTeamLink = "";
 let leagueURL = "https://www.faceit.com/en/csgo/league/ESEA%20League/a14b8616-45b9-4581-8637-4dfd0b5f6af8/overview";
 
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
-  console.log(obj.league_level);
+  console.log(obj);
   leagueLevel = obj.league_level;
+  playerTeamName = obj.team_name;
+  playerTeamLink = cleanURL(obj.team_URL, obj.url_language);
   if (name) {
     displayInfo(name);
   }
@@ -21,7 +23,7 @@ const displayInfo = (playerName) => {
     }, 1000);
   } else {
     if (document.getElementById("team-stat-section")) {
-      //updateInfo();
+      updateInfo();
       return;
     }
     const playerRightSideDetails = document.getElementById("content-grid-element-5");
@@ -30,23 +32,16 @@ const displayInfo = (playerName) => {
   }
 };
 
-const updateInfo = () => {};
+const updateInfo = () => {
+  leagueLevel = getLeagueName(leagueLevel);
+  const teamNameSection = document.getElementById("team-name");
+  const teamLeagueLevel = document.getElementById("league-level");
+  const teamLevel = document.getElementById("team-level");
 
-const setPlayerLeagueImage = (leagueName) => {
-  switch (leagueName) {
-    case "Challenger":
-      return browser.runtime.getURL("Assets/Challenger.png");
-    case "Advanced":
-      return browser.runtime.getURL("Assets/Advanced.png");
-    case "Main":
-      return browser.runtime.getURL("Assets/Main.png");
-    case "Intermediate":
-      return browser.runtime.getURL("Assets/Intermediate.png");
-    case "Open":
-      return browser.runtime.getURL("Assets/Open.png");
-    default:
-      return browser.runtime.getURL("Assets/Open.png");
-  }
+  teamNameSection.innerHTML = playerTeamName;
+  teamNameSection.href = playerTeamLink;
+  teamLeagueLevel.innerHTML = leagueLevel;
+  teamLevel.innerHTML = leagueLevel;
 };
 
 const generateHTML = () => {
@@ -69,6 +64,7 @@ const generateHTML = () => {
 
   const teamStatSectionTitle = document.createElement("div");
   teamStatSectionTitle.className = "league-title";
+  teamStatSectionTitle.id = "league-level";
   teamStatSectionTitle.innerHTML = leagueLevel;
   teamStatSection.appendChild(teamStatSectionTitle);
 
@@ -95,6 +91,7 @@ const generateHTML = () => {
   teamNameText.className = "team-name-team";
   teamNameText.innerHTML = leagueLevel;
   teamNameText.href = leagueURL;
+  teamNameText.id = "team-level";
   teamLeagueName.appendChild(teamNameText);
   teamStatSection.appendChild(teamLeagueName);
 
@@ -109,6 +106,7 @@ const generateHTML = () => {
   const teamName = document.createElement("a");
   teamName.className = "team-name-team";
   teamName.innerHTML = playerTeamName;
+  teamName.id = "team-name";
   teamName.href = playerTeamLink;
 
   playerTeamNameSection.appendChild(teamName);
@@ -135,10 +133,14 @@ const getLeagueName = (leagueName) => {
           if (leagueName.includes("ECL")) {
             return "Challenger";
           } else {
-            return "NA";
+            return "Loading";
           }
         }
       }
     }
   }
+};
+
+const cleanURL = (url, language) => {
+  return url.replace("{lang}", language);
 };
