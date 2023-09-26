@@ -5,7 +5,7 @@ let leagueURL = "https://www.faceit.com/en/csgo/league/ESEA%20League/a14b8616-45
 
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
-  console.log(obj.league_level);
+  console.log(obj.team_name);
   leagueLevel = obj.league_level;
   playerTeamName = obj.team_name;
   playerTeamLink = cleanURL(obj.team_URL, obj.url_language);

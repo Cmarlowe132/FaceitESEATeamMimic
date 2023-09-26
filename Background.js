@@ -20,7 +20,6 @@ browser.tabs.onUpdated.addListener(async (tabId, tab) => {
         },
         files: ["teamStatSection.css"],
       });
-      console.log(playerName);
       await callAPIs(playerName);
       await sendMessage(tabId, playerName, urlLanguage);
     }
@@ -36,7 +35,6 @@ browser.tabs.onUpdated.addListener(async (tabId, tab) => {
           },
           files: ["teamStatSection.css"],
         });
-        console.log(playerName);
         await callAPIs(playerName);
         await sendMessage(tabId, playerName, urlLanguage);
       }
@@ -59,7 +57,6 @@ const sendMessage = async (tabs, playerName, urlLanguage) => {
       url_language: urlLanguage,
     });
     leagueLevel = "";
-    playerID = "";
     playerTeamID = "";
     teamName = "";
     teamURL = "";
@@ -100,17 +97,14 @@ const getPlayerMatchHistory = async () => {
         !currentMatches.items[i].competition_name.includes("Qualifier")
       ) {
         leagueLevel = currentMatches.items[i].competition_name;
-
         for (let j = 0; j < currentMatches.items[i].teams.faction1.players.length; j++) {
           if (currentMatches.items[i].teams.faction1.players[j].player_id === playerID) {
             playerTeamID = currentMatches.items[i].teams.faction1.team_id;
-            console.log(currentMatches.items[i].teams.faction1.players[j].player_id + " " + playerID);
             break;
           }
         }
 
         if (playerTeamID === "") {
-          console.log("HELLO!");
           playerTeamID = currentMatches.items[i].teams.faction2.team_id;
         }
         break;
@@ -122,7 +116,6 @@ const getPlayerMatchHistory = async () => {
       num += 100;
     }
   }
-  console.log(playerTeamID);
   const teamResponse = await fetch(faceitAPIURL + "teams/" + playerTeamID, {
     method: "GET",
     headers: {
@@ -134,8 +127,6 @@ const getPlayerMatchHistory = async () => {
   const teamInfo = await teamResponse.json();
   teamName = teamInfo.name;
   teamURL = teamInfo.faceit_url;
-
-  console.log(teamName);
 
   return new Promise(() => {});
 };
