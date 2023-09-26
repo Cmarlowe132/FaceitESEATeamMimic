@@ -104,6 +104,7 @@ const getPlayerMatchHistory = async () => {
         for (let j = 0; j < currentMatches.items[i].teams.faction1.players.length; j++) {
           if (currentMatches.items[i].teams.faction1.players[j].player_id === playerID) {
             playerTeamID = currentMatches.items[i].teams.faction1.team_id;
+            console.log(currentMatches.items[i].teams.faction1.players[j].player_id + " " + playerID);
             break;
           }
         }
