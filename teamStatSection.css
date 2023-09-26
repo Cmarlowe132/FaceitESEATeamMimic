@@ -1,5 +1,50 @@
-.winSection {
+.league-title {
+  background-color: #ff5500;
+  color: whitesmoke;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  display: inline-block;
+  margin: 0 auto;
+  font-size: 20px;
+  border-radius: 5px;
 }
 
-.lossSection {
+.league-text {
+  color: darkgrey;
+  letter-spacing: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.record {
+  color: whitesmoke;
+  font-size: 30px;
+}
+
+.team-name {
+  color: whitesmoke;
+  font-size: 20px;
+}
+
+.team-name-team {
+  font-size: 20px;
+  color: #ff5500;
+}
+
+.team-name-team:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+.image-section {
+  width: 200px;
+}
+
+.team-stat-section {
+  text-align: center;
+  padding-top: 10px;
 }
