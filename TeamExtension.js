@@ -1,12 +1,14 @@
 let leagueLevel = "";
-let playerTeamName = "Faze Clan"; //Temporary Holder
-let playerTeamLink = "https://www.faceit.com/en/teams/16038d23-f326-4f7b-af9a-68240c661296";
+let playerTeamName = ""; //Temporary Holder
+let playerTeamLink = "";
 let leagueURL = "https://www.faceit.com/en/csgo/league/ESEA%20League/a14b8616-45b9-4581-8637-4dfd0b5f6af8/overview";
 
 browser.runtime.onMessage.addListener((obj, sender, response) => {
   let name = obj.playerName;
   console.log(obj.league_level);
   leagueLevel = obj.league_level;
+  playerTeamName = obj.team_name;
+  playerTeamLink = cleanURL(obj.team_URL, obj.url_language);
   if (name) {
     displayInfo(name);
   }
@@ -31,23 +33,6 @@ const displayInfo = (playerName) => {
 };
 
 const updateInfo = () => {};
-
-const setPlayerLeagueImage = (leagueName) => {
-  switch (leagueName) {
-    case "Challenger":
-      return browser.runtime.getURL("Assets/Challenger.png");
-    case "Advanced":
-      return browser.runtime.getURL("Assets/Advanced.png");
-    case "Main":
-      return browser.runtime.getURL("Assets/Main.png");
-    case "Intermediate":
-      return browser.runtime.getURL("Assets/Intermediate.png");
-    case "Open":
-      return browser.runtime.getURL("Assets/Open.png");
-    default:
-      return browser.runtime.getURL("Assets/Open.png");
-  }
-};
 
 const generateHTML = () => {
   leagueLevel = getLeagueName(leagueLevel);
@@ -141,4 +126,8 @@ const getLeagueName = (leagueName) => {
       }
     }
   }
+};
+
+const cleanURL = (url, language) => {
+  return url.replace("{lang}", language);
 };
